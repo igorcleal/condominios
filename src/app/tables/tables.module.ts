@@ -77,6 +77,7 @@ export function highlightJsFactory(): any {
    FixedTableComponent],
 
   exports: [
+    ResponsiveTableComponent
     ]
       
 })

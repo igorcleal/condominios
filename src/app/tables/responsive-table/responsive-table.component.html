@@ -37,7 +37,7 @@
 								</td>
 							</tr>
 					</tbody>
-					<thead *matHeaderRowDef="displayedColumns"></thead>
+					<thead *matHeaderRowDef="displayedColumns">{{aaa}}</thead>
 					<tr *matRowDef="let row; columns: displayedColumns;"></tr>
 				</table>
 				<mat-paginator [length]="pageLength"

@@ -1,0 +1,39 @@
+<div class="example-header" style="padding: 0 20px;">
+  <mat-form-field floatPlaceholder="never" style="color: white; width: 100%;">
+    <input matInput #filter placeholder="Filter users">
+  </mat-form-field>
+</div>
+<mat-table #table [dataSource]="matDataSource">
+
+  <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- ID Column -->
+  <ng-container *ngFor="let colunas of columns" [matColumnDef]="colunas.field">
+    <mat-header-cell *matHeaderCellDef> {{colunas.titulo}} </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <div *ngIf="!isDate(row[colunas.field])">
+        {{row[colunas.field]}}
+      </div>
+      <div *ngIf="isDate(row[colunas.field])">
+        {{row[colunas.field] | date:'dd/MM/yyyy HH:mm:ss' }}
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <!--<ng-container matColumnDef="data_criacao">
+        <mat-header-cell *matHeaderCellDef>Data </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.data_criacao | date:'dd/MM/yyyy HH:mm:ss'}} </mat-cell>
+      </ng-container>-->
+
+  <mat-header-row *matHeaderRowDef="columnsFields"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columnsFields;"></mat-row>
+
+</mat-table>
+
+<mat-paginator #paginator
+[length]="length"
+[pageIndex]="pageIndex"
+[pageSize]="pageSize"
+(page)="pageChanged($event)">
+</mat-paginator>

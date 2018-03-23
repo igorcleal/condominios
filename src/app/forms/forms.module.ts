@@ -5,15 +5,16 @@ import { ReactiveFormsComponent } from './reactive-forms/reactive-forms.componen
 import { TemplateDrivenFormsComponent } from './template-driven-forms/template-driven-forms.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
-			MatButtonModule,
-			MatToolbarModule,
-			MatCardModule,
-			MatTabsModule,
-			MatIconModule,} from '@angular/material';
+	MatButtonModule,
+	MatToolbarModule,
+	MatCardModule,
+	MatTabsModule,
+	MatIconModule,
+} from '@angular/material';
 import { MatInputModule } from '@angular/material';
-import {  ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 @NgModule({
 	imports: [
 		CommonModule,
@@ -24,9 +25,9 @@ import { FormsModule }   from '@angular/forms';
 		MatCardModule,
 		MatTabsModule,
 		MatIconModule,
-		 MatInputModule,
-		 ReactiveFormsModule,
-		 FormsModule
+		MatInputModule,
+		ReactiveFormsModule,
+		FormsModule
 	],
 	declarations: [ReactiveFormsComponent, TemplateDrivenFormsComponent]
 })

@@ -12,6 +12,13 @@ export const menus = [
                             "icon": "dashboard",
                             "chip"   : false,
                             "open"   : true,
+                        },
+                        {
+                            "name": "Teste",
+                            "link": "/auth/teste",
+                            "icon": "dashboard",
+                            "chip"   : false,
+                            "open"   : true,
                         }
                         
                     ]
