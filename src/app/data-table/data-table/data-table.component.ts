@@ -2,6 +2,8 @@ import { Observable } from 'rxjs/Observable';
 import { MatTableDataSource, PageEvent } from '@angular/material';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { CollectionReference } from '@firebase/firestore-types';
+import { Query } from '@firebase/database';
 
 @Component({
   selector: 'app-data-table',
@@ -15,6 +17,9 @@ export class DataTableComponent implements OnInit {
 
   @Input()
   public columns;
+
+  @Input()
+  campoOrdenacao;
 
   public columnsFields: Array<string>; //fields das colunas
 
@@ -30,15 +35,16 @@ export class DataTableComponent implements OnInit {
   pageIndex: number = 0;
   pageSize: number = 10;
   pageEvent: PageEvent;
-
-
+  lastElement: any;
+  firstElement: any;
 
   constructor(private db: AngularFirestore) { }
 
   ngOnInit() {
-    this.db.collection(this.collectionName, ref => ref.orderBy('data_criacao')).valueChanges()
+    this.db.collection(this.collectionName, ref => ref.orderBy(this.campoOrdenacao)).valueChanges()
       .subscribe((results) => {
         this.length = results.length;
+        this.lastElement = results[this.pageSize - 1];
         this.matDataSource = new MatTableDataSource(results.splice(0, this.pageSize));
       });
 
@@ -59,11 +65,53 @@ export class DataTableComponent implements OnInit {
   pageChanged(e: PageEvent) {
     let startAt = e.pageIndex * e.pageSize
     console.log(startAt);
-    this.db.collection(this.collectionName, ref => ref.orderBy('data_criacao').startAt(startAt))
-      .valueChanges()
-      .subscribe((results) => {
-        this.matDataSource = new MatTableDataSource(results);
-      })
+
+    if (e.pageIndex > this.pageIndex) {
+
+      this.db.collection(this.collectionName, (ref) => ref.orderBy(this.campoOrdenacao)
+        .startAfter(this.lastElement[this.campoOrdenacao])
+        .limit(this.pageSize))
+        .valueChanges()
+        .subscribe((results) => {
+          this.firstElement = results[0];
+          this.lastElement = results[results.length - 1];
+          this.matDataSource = new MatTableDataSource(results);
+          this.pageIndex = e.pageIndex;
+        });
+
+    } else {
+      this.db.collection(this.collectionName, (ref) => ref.orderBy(this.campoOrdenacao)
+        .endBefore(this.lastElement[this.campoOrdenacao])
+        .limit(this.pageSize))
+        .valueChanges()
+        .subscribe((results) => {
+          this.firstElement = results[0];
+          this.lastElement = results[results.length - 1];
+          this.matDataSource = new MatTableDataSource(results);
+          this.pageIndex = e.pageIndex;
+        });
+    }
   }
 
+  pesquisar(params: Array<ParametroConsulta>) {
+    this.db.collection(this.collectionName, ref => {
+      let query;
+      params.forEach(param => {
+        query = ref.where(param.nome, param.operador, param.valor);
+      });
+      return query;
+    }).valueChanges().subscribe(results => {
+      console.log(results);
+      this.length = results.length;
+      this.lastElement = results[this.pageSize - 1];
+      this.matDataSource = new MatTableDataSource(results.splice(0, this.pageSize));
+    })
+  }
+
+}
+
+export class ParametroConsulta {
+  nome;
+  valor;
+  operador;
 }

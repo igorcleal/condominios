@@ -1,3 +1,4 @@
+import { DataTableComponent } from './../data-table/data-table/data-table.component';
 import { Observable } from 'rxjs/Observable';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore'
@@ -13,10 +14,15 @@ import { ExampleDataSource, ExampleDatabase } from '../tables/fixed-table/helper
 })
 export class TesteComponent implements OnInit {
 
+  @ViewChild(DataTableComponent)
+  private dataTableComponent: DataTableComponent;
+
   items: Observable<any[]>;
   form: FormGroup;
   public columns = [{ field: 'nome', titulo: 'Nome' }
     , { field: 'data_criacao', titulo: "Data Criação" }];
+
+  paramNome: string;
 
   constructor(private db: AngularFirestore,
     private fb: FormBuilder) {
@@ -44,10 +50,6 @@ export class TesteComponent implements OnInit {
 
   }
 
-  consultar() {
-
-  }
-
   salvar() {
     console.log(this.form);
     if (this.form.valid) {
@@ -62,6 +64,13 @@ export class TesteComponent implements OnInit {
         console.log(res);
       }).catch((err) => console.error(err));
     }
+  }
+
+  pesquisar() {
+    let param = {
+      nome: 'nome', operador: '==', valor: 'teste'
+    }
+    this.dataTableComponent.pesquisar([param]);
   }
 
 }
