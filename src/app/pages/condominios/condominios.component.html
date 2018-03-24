@@ -1,0 +1,16 @@
+<app-crud (salvar)="salvar()" (pesquisar)="pesquisar()">
+  <div cadastro>
+
+    <form class="example-form" [formGroup]="form">
+      <mat-form-field class="example-full-width">
+        <input id="condominio" placeholder="Condomínio" formControlName="condominio" required matInput>
+      </mat-form-field>
+    </form>
+
+  </div>
+
+  <div pesquisa>pesquisa</div>
+  
+  <div lista>lista</div>
+  
+</app-crud>

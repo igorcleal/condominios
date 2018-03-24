@@ -7,11 +7,7 @@
       </button>
     </mat-toolbar>
     <div class="table-container">
-      <form class="example-form" [formGroup]="form">
-        <mat-form-field class="example-full-width">
-          <input id="condominio" placeholder="Condomínio" formControlName="condominio" required matInput>
-        </mat-form-field>
-      </form>
+      <ng-content select="[cadastro]"></ng-content>
     </div>
   </div>
 
@@ -27,9 +23,7 @@
         </button>
       </mat-toolbar>
       <div class="table-container">
-        <mat-form-field class="example-full-width">
-          <input id="searchNome" [(ngModel)]="paramNome" placeholder="Nome" matInput>
-        </mat-form-field>
+          <ng-content select="[parametros]"></ng-content>
       </div>
     </div>
 
@@ -38,7 +32,7 @@
         <h1 class="mat-headline center-align">Fixed Table</h1>
       </mat-toolbar>
       <div class="table-container">
-        <app-data-table [columns]="columns" collectionName="condominios" campoOrdenacao="data_criacao"></app-data-table>
+          <ng-content select="[lista]"></ng-content>
       </div>
     </div>
   </div>

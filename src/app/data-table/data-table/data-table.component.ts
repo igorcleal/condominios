@@ -27,7 +27,6 @@ export class DataTableComponent implements OnInit {
 
   public showFilterTableCode;
 
-  @ViewChild('filter') filter: ElementRef;
   matDataSource;
 
   //pagination
@@ -37,6 +36,7 @@ export class DataTableComponent implements OnInit {
   pageEvent: PageEvent;
   lastElement: any;
   firstElement: any;
+  paramsPesquisa: Array<ParametroConsulta>;
 
   constructor(private db: AngularFirestore) { }
 
@@ -66,39 +66,46 @@ export class DataTableComponent implements OnInit {
     let startAt = e.pageIndex * e.pageSize
     console.log(startAt);
 
-    if (e.pageIndex > this.pageIndex) {
+    this.db.collection(this.collectionName,
+      ref => {
+        let query;
+        if (e.pageIndex > this.pageIndex) {
+          query = ref.orderBy(this.campoOrdenacao)
+            .startAfter(this.lastElement[this.campoOrdenacao])
+            .limit(this.pageSize);
+        } else {
+          query = ref.orderBy(this.campoOrdenacao)
+            .endBefore(this.lastElement[this.campoOrdenacao])
+            .limit(this.pageSize)
+        }
 
-      this.db.collection(this.collectionName, (ref) => ref.orderBy(this.campoOrdenacao)
-        .startAfter(this.lastElement[this.campoOrdenacao])
-        .limit(this.pageSize))
-        .valueChanges()
-        .subscribe((results) => {
-          this.firstElement = results[0];
-          this.lastElement = results[results.length - 1];
-          this.matDataSource = new MatTableDataSource(results);
-          this.pageIndex = e.pageIndex;
-        });
+        if (this.paramsPesquisa && this.paramsPesquisa.length > 0) {
+          this.paramsPesquisa.forEach(param => {
+            query = ref.where(param.nome, param.operador, param.valor);
+          });
+        }
+        return query;
+      })
+      .valueChanges()
+      .subscribe((results) => {
+        this.firstElement = results[0];
+        this.lastElement = results[results.length - 1];
+        this.matDataSource = new MatTableDataSource(results);
+        this.pageIndex = e.pageIndex;
+      });
 
-    } else {
-      this.db.collection(this.collectionName, (ref) => ref.orderBy(this.campoOrdenacao)
-        .endBefore(this.lastElement[this.campoOrdenacao])
-        .limit(this.pageSize))
-        .valueChanges()
-        .subscribe((results) => {
-          this.firstElement = results[0];
-          this.lastElement = results[results.length - 1];
-          this.matDataSource = new MatTableDataSource(results);
-          this.pageIndex = e.pageIndex;
-        });
-    }
   }
 
   pesquisar(params: Array<ParametroConsulta>) {
+    this.paramsPesquisa = params;
     this.db.collection(this.collectionName, ref => {
       let query;
-      params.forEach(param => {
-        query = ref.where(param.nome, param.operador, param.valor);
-      });
+      query = ref.orderBy(this.campoOrdenacao)
+      if (params && params.length > 0) {
+        params.forEach(param => {
+          query = ref.where(param.nome, param.operador, param.valor);
+        });
+      }
       return query;
     }).valueChanges().subscribe(results => {
       console.log(results);

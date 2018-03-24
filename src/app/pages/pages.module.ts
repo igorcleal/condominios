@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
-import { 
-        MatCardModule,
-        MatButtonModule,
-        MatButtonToggleModule,
-        MatInputModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatCheckboxModule,
-        MatListModule,
-       } from '@angular/material';
+import {
+    MatCardModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatInputModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatListModule,
+} from '@angular/material';
 import { MatChipsModule } from '@angular/material/chips';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -17,9 +17,14 @@ import { ContactComponent } from './contact/contact.component';
 import { AboutComponent } from './about/about.component';
 import { ServicesComponent } from './services/services.component';
 import { CoreModule } from '../core/core.module';
+import { CondominiosComponent } from './condominios/condominios.component';
+import { CrudModule } from '../crud/crud.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     imports: [
+        FormsModule,
+        ReactiveFormsModule,
         MatCardModule,
         CommonModule,
         FlexLayoutModule,
@@ -32,11 +37,13 @@ import { CoreModule } from '../core/core.module';
         MatListModule,
         MatChipsModule,
         CoreModule,
-        PagesRouterModule ],
-    declarations: [   
+        PagesRouterModule,
+        CrudModule],
+    declarations: [
         ContactComponent,
         AboutComponent,
-        ServicesComponent
+        ServicesComponent,
+        CondominiosComponent
     ],
     exports: [
     ],

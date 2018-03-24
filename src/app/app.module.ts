@@ -15,7 +15,6 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { FirebaseApp, AngularFireModule } from 'angularfire2';
 import { DataTableComponent } from './data-table/data-table/data-table.component';
 
-
 @NgModule({
   declarations: [
     AppComponent

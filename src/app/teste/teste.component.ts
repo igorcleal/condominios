@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { ResponsiveTableHelpers } from '../tables/responsive-table/helpers.data';
 import { ExampleDataSource, ExampleDatabase } from '../tables/fixed-table/helpers.data';
+import { EnumTela } from '../model/EnumTela';
 
 @Component({
   selector: 'app-teste',
@@ -23,6 +24,9 @@ export class TesteComponent implements OnInit {
     , { field: 'data_criacao', titulo: "Data Criação" }];
 
   paramNome: string;
+
+  tela: EnumTela = EnumTela.PESQUISA;
+  EnumTela: typeof EnumTela = EnumTela;
 
   constructor(private db: AngularFirestore,
     private fb: FormBuilder) {
@@ -51,7 +55,6 @@ export class TesteComponent implements OnInit {
   }
 
   salvar() {
-    console.log(this.form);
     if (this.form.valid) {
       console.log('form valid');
 
@@ -62,15 +65,25 @@ export class TesteComponent implements OnInit {
 
       this.db.collection('condominios').add(condominio).then((res) => {
         console.log(res);
+        this.tela = EnumTela.PESQUISA;
       }).catch((err) => console.error(err));
     }
   }
 
   pesquisar() {
-    let param = {
-      nome: 'nome', operador: '==', valor: 'teste'
+    if (this.paramNome) {
+      let param = {
+        nome: 'nome', operador: '==', valor: this.paramNome
+      }
+      this.dataTableComponent.pesquisar([param]);
     }
-    this.dataTableComponent.pesquisar([param]);
+    else {
+      this.dataTableComponent.pesquisar(null);
+    }
+  }
+
+  novo() {
+    this.tela = EnumTela.CADASTRO;
   }
 
 }

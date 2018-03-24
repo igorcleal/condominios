@@ -19,6 +19,13 @@ export const menus = [
                             "icon": "dashboard",
                             "chip"   : false,
                             "open"   : true,
+                        },
+                        {
+                            "name": "Crud",
+                            "link": "/auth/crud",
+                            "icon": "dashboard",
+                            "chip"   : false,
+                            "open"   : true,
                         }
                         
                     ]
@@ -263,7 +270,13 @@ export const menus = [
                             "icon":"directions",
                             "open": false,
                             "link":"pages/contact"
+                        },{
+                            "name":"Condomínios",
+                            "icon":"directions",
+                            "open": false,
+                            "link":"pages/condominios"
                         }
+
                     ]
     }
     ,{
