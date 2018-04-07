@@ -20,6 +20,7 @@ import { CoreModule } from '../core/core.module';
 import { CondominiosComponent } from './condominios/condominios.component';
 import { CrudModule } from '../crud/crud.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CondominiosService } from '../services/condominios.service';
 
 @NgModule({
     imports: [
@@ -48,6 +49,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     exports: [
     ],
     providers: [
+        CondominiosService
     ]
 })
 export class PagesModule {

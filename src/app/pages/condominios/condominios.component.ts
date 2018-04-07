@@ -1,3 +1,4 @@
+import { CondominiosService } from './../../services/condominios.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms/src/model';
 import { Validators, FormBuilder } from '@angular/forms';
@@ -13,9 +14,15 @@ export class CondominiosComponent implements OnInit {
   form: FormGroup;
 
   constructor(private fb: FormBuilder,
-    private db: AngularFirestore) { }
+    private db: AngularFirestore,
+    private condominioService: CondominiosService) { }
 
   ngOnInit() {
+    this.condominioService.get().subscribe((result) => {
+      console.log(result);
+    }, err => {
+      console.error(err);
+    })
     this.buildForm();
   }
 
@@ -33,12 +40,17 @@ export class CondominiosComponent implements OnInit {
 
       let condominio = {
         nome: this.form.value.condominio,
-        data_criacao: new Date()
+        dataCriacao: new Date()
       }
 
       this.db.collection('condominios').add(condominio).then((res) => {
         console.log(res);
       }).catch((err) => console.error(err));
+      /*this.condominioService.incluir(condominio).subscribe(res => {
+        console.log('success incluiu');
+      }, err => {
+        console.error(err);
+      });*/
     }
   }
 

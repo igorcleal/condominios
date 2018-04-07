@@ -1,3 +1,5 @@
+import { HttpModule } from '@angular/http';
+import { CondominiosService } from './services/condominios.service';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { FormsModule } from '@angular/forms';
 import { FirebaseConfig } from './../environments/firebase.config';
@@ -14,6 +16,7 @@ import { TesteComponent } from './teste/teste.component';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { FirebaseApp, AngularFireModule } from 'angularfire2';
 import { DataTableComponent } from './data-table/data-table/data-table.component';
+import { HttpService } from './services/http.service';
 
 @NgModule({
   declarations: [
@@ -25,12 +28,14 @@ import { DataTableComponent } from './data-table/data-table/data-table.component
     LazyLoadModule,
     CoreModule,
     BrowserAnimationsModule,
+    HttpModule,
     AngularFireModule.initializeApp(FirebaseConfig)
   ],
   providers: [UserService,
     AuthguardGuard,
     AngularFireAuth,
-    AngularFirestore],
+    AngularFirestore,
+    HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
