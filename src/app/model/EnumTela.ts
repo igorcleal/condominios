@@ -1,4 +1,5 @@
 export enum EnumTela {
-    PESQUISA = 0,
-    CADASTRO
+    PESQUISAR = 0,
+    INCLUIR,
+    ALTERAR
 }

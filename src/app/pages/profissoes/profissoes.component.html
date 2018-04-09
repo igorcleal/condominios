@@ -3,14 +3,20 @@
 
     <form class="example-form" [formGroup]="form">
       <mat-form-field class="example-full-width">
-        <input id="condominio" placeholder="Condomínio" formControlName="condominio" required matInput>
+        <input [(ngModel)]="profissao.nome" placeholder="Profissão" formControlName="nome" required matInput>
       </mat-form-field>
     </form>
 
   </div>
 
   <div parametros>pesquisa</div>
-  
-  <div lista>lista</div>
-  
+
+  <div lista>
+    <div class="table-container">
+
+      <app-profissoes-lista (alterar)="alterar($event)"></app-profissoes-lista>
+
+    </div>
+  </div>
+
 </app-crud>

@@ -15,6 +15,11 @@ import { EnumTela } from '../model/EnumTela';
 })
 export class TesteComponent implements OnInit {
 
+  teste: string = 'daniel';
+  cor = 'blue';
+
+  numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
   @ViewChild(DataTableComponent)
   private dataTableComponent: DataTableComponent;
 
@@ -25,12 +30,11 @@ export class TesteComponent implements OnInit {
 
   paramNome: string;
 
-  tela: EnumTela = EnumTela.PESQUISA;
+  tela: EnumTela = EnumTela.PESQUISAR;
   EnumTela: typeof EnumTela = EnumTela;
 
   constructor(private db: AngularFirestore,
     private fb: FormBuilder) {
-
 
   }
 
@@ -65,8 +69,9 @@ export class TesteComponent implements OnInit {
 
       this.db.collection('condominios').add(condominio).then((res) => {
         console.log(res);
-        this.tela = EnumTela.PESQUISA;
+        this.tela = EnumTela.PESQUISAR;
       }).catch((err) => console.error(err));
+
     }
   }
 
@@ -83,7 +88,11 @@ export class TesteComponent implements OnInit {
   }
 
   novo() {
-    this.tela = EnumTela.CADASTRO;
+    this.tela = EnumTela.INCLUIR;
+  }
+
+  public clickou(): void {
+    console.log('clickou');
   }
 
 }

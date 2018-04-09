@@ -1,3 +1,4 @@
+import { EnumTela } from './../model/EnumTela';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { EnumTela } from '../model/EnumTela';
 
@@ -8,7 +9,7 @@ import { EnumTela } from '../model/EnumTela';
 })
 export class CrudComponent implements OnInit {
 
-  tela: EnumTela = EnumTela.PESQUISA;
+  tela: EnumTela = EnumTela.PESQUISAR;
   EnumTela: typeof EnumTela = EnumTela;
 
   @Output("salvar") _salvar = new EventEmitter();
@@ -20,16 +21,19 @@ export class CrudComponent implements OnInit {
   }
 
   novo() {
-    this.tela = EnumTela.CADASTRO;
+    this.tela = EnumTela.INCLUIR;
   }
 
   salvar() {
-    this.tela = EnumTela.PESQUISA;
     this._salvar.emit();
   }
 
   pesquisar() {
     this._pesquisar.emit();
+  }
+
+  voltar() {
+    this.tela = EnumTela.PESQUISAR;
   }
 
 }

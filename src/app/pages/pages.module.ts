@@ -8,6 +8,11 @@ import {
     MatIconModule,
     MatCheckboxModule,
     MatListModule,
+    MatFormFieldModule,
+    MatPaginatorModule,
+    MatTooltipModule,
+    MatSortModule,
+    MatTableModule
 } from '@angular/material';
 import { MatChipsModule } from '@angular/material/chips';
 import { CommonModule } from '@angular/common';
@@ -21,6 +26,8 @@ import { CondominiosComponent } from './condominios/condominios.component';
 import { CrudModule } from '../crud/crud.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CondominiosService } from '../services/condominios.service';
+import { ProfissoesComponent } from './profissoes/profissoes.component';
+import { ProfissoesListaComponent } from './profissoes/profissoes-lista/profissoes-lista.component';
 
 @NgModule({
     imports: [
@@ -39,12 +46,21 @@ import { CondominiosService } from '../services/condominios.service';
         MatChipsModule,
         CoreModule,
         PagesRouterModule,
-        CrudModule],
+        CrudModule, MatFormFieldModule,
+        MatInputModule,
+        CommonModule,
+        MatPaginatorModule,
+        MatTooltipModule,
+        MatChipsModule,
+        MatSortModule,
+        MatTableModule],
     declarations: [
         ContactComponent,
         AboutComponent,
         ServicesComponent,
-        CondominiosComponent
+        CondominiosComponent,
+        ProfissoesComponent,
+        ProfissoesListaComponent
     ],
     exports: [
     ],

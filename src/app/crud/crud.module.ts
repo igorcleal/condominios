@@ -1,3 +1,4 @@
+import { MatIconModule } from '@angular/material/icon';
 import { CrudComponent } from './crud.component';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -39,6 +40,7 @@ export function highlightJsFactory(): any {
         MatInputModule,
         MatToolbarModule,
         MatButtonModule,
+        MatIconModule,
         RouterModule.forChild(appRoutes),
         HighlightJsModule.forRoot({
             provide: HIGHLIGHT_JS,

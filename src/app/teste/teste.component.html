@@ -30,6 +30,15 @@
         <mat-form-field class="example-full-width">
           <input id="searchNome" [(ngModel)]="paramNome" placeholder="Nome" matInput>
         </mat-form-field>
+
+        <input id="searchNome" [(ngModel)]="paramNome" placeholder="Nome">
+        <p [style.background]="cor" (click)="clickou(); clicked = true;"> {{paramNome}}</p>
+
+        <p *ngFor="let numero of numeros">
+          <span *ngIf="numero%2 == 0 && !clicked" [style.margin]="numero">{{numero}}</span>
+
+        </p>
+
       </div>
     </div>
 

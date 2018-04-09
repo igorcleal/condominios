@@ -275,6 +275,11 @@ export const menus = [
                             "icon":"directions",
                             "open": false,
                             "link":"pages/condominios"
+                        },{
+                            "name":"Profissões",
+                            "icon":"directions",
+                            "open": false,
+                            "link":"pages/profissoes"
                         }
 
                     ]
